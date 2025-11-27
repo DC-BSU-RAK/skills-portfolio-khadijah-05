@@ -282,7 +282,7 @@ def delete_student_window():
 
         target = None
         for s in students:
-
+            
             # Checking if it matches student code or name
             if q in s["name"].lower() or q in s["code"].lower():
                 target = s
@@ -302,6 +302,7 @@ def delete_student_window():
         text="Delete", 
         command=delete
     ).pack(pady=10)
+
 
 # Updating Sudent Record
 def update_student_window():
