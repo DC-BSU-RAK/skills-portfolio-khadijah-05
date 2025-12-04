@@ -39,7 +39,7 @@ def load_students():
         return students
 
     except:
-        messagebox.showerror("Error", "Unable to load studentMarks.txt")
+        messagebox.showerror("Error")
         return [] 
 
 # Saving after adding, deleting and updating file
@@ -250,7 +250,7 @@ def add_student_window():
         # Saving updated list
         save_students_to_file()
         win.destroy()
-        messagebox.showinfo("Success", "Student Added")
+        messagebox.showinfo("Student Added")
 
     # Button to save the record
     Button(
@@ -266,7 +266,7 @@ def delete_student_window():
     win.geometry("200x100")
     win.config(bg="black")
 
-    # Asking user for name or code of the student to be deleted
+    # Aking user for name or code pf the student that is to be deleted
     Label(
         win, 
         text="Enter Name or Code",
@@ -279,22 +279,20 @@ def delete_student_window():
 
     def delete():
         q = e_query.get().strip().lower()
-
-        target = None
         for s in students:
 
-            # Checking if it matches student code or name
+             # Checking if it matches student code or name
             if q in s["name"].lower() or q in s["code"].lower():
-                target = s
-                break
+                students.remove(s) #removed
 
-        if target:
-            students.remove(target)   
-            save_students_to_file()   
-            win.destroy()
-            messagebox.showinfo("Deleted", "Student record removed")
-        else:
-            messagebox.showerror("Not Found", "Student not found")
+                # Saving the updated list back to file
+                save_students_to_file()
+                win.destroy()
+                messagebox.showinfo("Deleted")
+                return
+            
+            # If not found
+            messagebox.showerror("Not Found")
 
     # Button for deleting 
     Button(
@@ -329,7 +327,7 @@ def update_student_window():
                 win.destroy()
                 edit_student(stu)
                 return
-        messagebox.showerror("Not Found", "Not Found")
+        messagebox.showerror("Not Found")
  
     # for the Search of the Record
     Button(
@@ -378,7 +376,7 @@ def edit_student(stu):
         
         save_students_to_file()
         win.destroy()
-        messagebox.showinfo("Updated","Record Updated")
+        messagebox.showinfo("Updated")
 
     # Button to save the Updated Record
     Button(
